@@ -1,4 +1,11 @@
-import { ArrowRight, Download, Github, Linkedin, Mail, Phone } from "lucide-react";
+import {
+  ArrowRight,
+  Download,
+  Github,
+  Linkedin,
+  Mail,
+  Phone,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import profileImage from "@/assets/profile-shreekant.jpg";
 
@@ -8,7 +15,10 @@ const Hero = () => {
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-20 left-10 w-72 h-72 bg-white/10 rounded-full blur-3xl animate-float" />
-        <div className="absolute bottom-20 right-10 w-96 h-96 bg-white/10 rounded-full blur-3xl animate-float" style={{ animationDelay: "1s" }} />
+        <div
+          className="absolute bottom-20 right-10 w-96 h-96 bg-white/10 rounded-full blur-3xl animate-float"
+          style={{ animationDelay: "1s" }}
+        />
       </div>
 
       <div className="container mx-auto px-4 py-20 relative z-10">
@@ -18,52 +28,63 @@ const Hero = () => {
             <div className="inline-block px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full text-sm font-medium mb-4">
               Full Stack Developer & Data Scientist
             </div>
-            
+
             <h1 className="text-5xl md:text-6xl font-bold leading-tight">
               Hi, I'm <br />
               <span className="text-white">Shreekant Bharti</span>
             </h1>
-            
+
             <p className="text-xl text-white/90 max-w-lg">
               Building Solutions for Real Impact
             </p>
-            
+
             <p className="text-lg text-white/80 leading-relaxed">
-              IT Engineer passionate about solving real-world problems through innovative digital solutions. 
-              Specializing in enterprise web development and data science.
+              IT Engineer passionate about solving real-world problems through
+              innovative digital solutions. Specializing in enterprise web
+              development and data science.
             </p>
 
             {/* CTA Buttons */}
             <div className="flex flex-wrap gap-4 pt-4">
-              <Button 
-                size="lg" 
-                className="bg-white text-primary hover:bg-white/90 group"
-                onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
+              <Button
+                size="lg"
+                className="bg-white text-primary hover:bg-white/90 group transition-all duration-300 hover:shadow-lg"
+                onClick={() =>
+                  document
+                    .getElementById("projects")
+                    ?.scrollIntoView({ behavior: "smooth" })
+                }
               >
                 View My Work
                 <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
               </Button>
-              <Button 
-                size="lg" 
-                variant="outline" 
-                className="border-white text-white hover:bg-white hover:text-primary"
+              <Button
+                size="lg"
+                className="bg-white text-primary hover:bg-white/90 group transition-all duration-300 hover:shadow-lg"
+                asChild
               >
-                <Download className="mr-2 h-5 w-5" />
-                Download Resume
+                <a
+                  href="/Shreekant_Bharti_Resume.pdf"
+                  download="Shreekant_Bharti_Resume.pdf"
+                  className="inline-flex items-center justify-center"
+                >
+                  <Download className="mr-2 h-5 w-5 group-hover:translate-y-1 transition-transform" />
+                  Download Resume
+                </a>
               </Button>
             </div>
 
             {/* Contact Links */}
             <div className="flex flex-wrap gap-4 pt-6">
-              <a 
-                href="mailto:shreekantbharti3@gmail.com" 
+              <a
+                href="mailto:shreekantbharti3@gmail.com"
                 className="flex items-center gap-2 text-white/90 hover:text-white transition-colors"
               >
                 <Mail className="h-5 w-5" />
                 <span className="text-sm">shreekantbharti3@gmail.com</span>
               </a>
-              <a 
-                href="tel:+919508059974" 
+              <a
+                href="tel:+919508059974"
                 className="flex items-center gap-2 text-white/90 hover:text-white transition-colors"
               >
                 <Phone className="h-5 w-5" />
@@ -73,17 +94,17 @@ const Hero = () => {
 
             {/* Social Links */}
             <div className="flex gap-4 pt-4">
-              <a 
-                href="https://www.linkedin.com/in/shreekant-bharti" 
-                target="_blank" 
+              <a
+                href="https://www.linkedin.com/in/shreekant-bharti"
+                target="_blank"
                 rel="noopener noreferrer"
                 className="p-3 bg-white/20 hover:bg-white/30 rounded-lg transition-colors backdrop-blur-sm"
               >
                 <Linkedin className="h-6 w-6 text-white" />
               </a>
-              <a 
-                href="https://github.com/Shreekant-Bharti" 
-                target="_blank" 
+              <a
+                href="https://github.com/Shreekant-Bharti"
+                target="_blank"
                 rel="noopener noreferrer"
                 className="p-3 bg-white/20 hover:bg-white/30 rounded-lg transition-colors backdrop-blur-sm"
               >
@@ -97,9 +118,9 @@ const Hero = () => {
             <div className="relative">
               <div className="absolute inset-0 bg-white/20 rounded-full blur-2xl" />
               <div className="relative w-80 h-80 md:w-96 md:h-96 rounded-full overflow-hidden border-8 border-white/20 backdrop-blur-sm shadow-2xl">
-                <img 
-                  src={profileImage} 
-                  alt="Shreekant Bharti" 
+                <img
+                  src={profileImage}
+                  alt="Shreekant Bharti"
                   className="w-full h-full object-cover"
                 />
               </div>
