@@ -15,26 +15,31 @@ const Contact = () => {
 
     const form = e.currentTarget;
     const formData = new FormData(form);
+    
+    // Add Web3Forms access key
+    formData.append("access_key", "c4d9c535-52d6-48b7-978e-0c96fd658c80");
+    formData.append("subject", `Portfolio Contact: ${formData.get("subject")}`);
+    formData.append("from_name", formData.get("name") as string);
 
     try {
-      const response = await fetch("https://formspree.io/f/xanydonl", {
+      const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
         body: formData,
-        headers: {
-          Accept: "application/json",
-        },
       });
 
-      if (response.ok) {
+      const data = await response.json();
+
+      if (data.success) {
         toast({
           title: "Message Sent Successfully!",
           description: "Thank you for reaching out. I'll get back to you soon.",
         });
         form.reset();
       } else {
-        throw new Error("Failed to send message");
+        throw new Error(data.message || "Failed to send message");
       }
     } catch (error) {
+      console.error("Form submission error:", error);
       toast({
         title: "Error Sending Message",
         description:
