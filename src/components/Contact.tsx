@@ -9,19 +9,41 @@ const Contact = () => {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
-    // Simulate form submission
-    setTimeout(() => {
-      toast({
-        title: "Message Sent!",
-        description: "Thank you for reaching out. I'll get back to you soon.",
+
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+
+    try {
+      const response = await fetch("https://formspree.io/f/xanydonl", {
+        method: "POST",
+        body: formData,
+        headers: {
+          Accept: "application/json",
+        },
       });
+
+      if (response.ok) {
+        toast({
+          title: "Message Sent Successfully!",
+          description: "Thank you for reaching out. I'll get back to you soon.",
+        });
+        form.reset();
+      } else {
+        throw new Error("Failed to send message");
+      }
+    } catch (error) {
+      toast({
+        title: "Error Sending Message",
+        description:
+          "Something went wrong. Please try again or email me directly.",
+        variant: "destructive",
+      });
+    } finally {
       setIsSubmitting(false);
-      (e.target as HTMLFormElement).reset();
-    }, 1000);
+    }
   };
 
   const contactInfo = [
@@ -29,20 +51,20 @@ const Contact = () => {
       icon: Mail,
       label: "Email",
       value: "shreekantbharti3@gmail.com",
-      href: "mailto:shreekantbharti3@gmail.com"
+      href: "mailto:shreekantbharti3@gmail.com",
     },
     {
       icon: Phone,
       label: "Phone",
       value: "+91 9508059974",
-      href: "tel:+919508059974"
+      href: "tel:+919508059974",
     },
     {
       icon: MapPin,
       label: "Location",
       value: "Jharkhand, India",
-      href: null
-    }
+      href: null,
+    },
   ];
 
   return (
@@ -55,8 +77,9 @@ const Contact = () => {
             </h2>
             <div className="w-20 h-1 bg-primary mx-auto rounded-full mb-6" />
             <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-              Have a project in mind or want to collaborate? Feel free to reach out. 
-              I'm always open to discussing new opportunities and innovative ideas.
+              Have a project in mind or want to collaborate? Feel free to reach
+              out. I'm always open to discussing new opportunities and
+              innovative ideas.
             </p>
           </div>
 
@@ -67,7 +90,7 @@ const Contact = () => {
                 <h3 className="text-2xl font-bold text-foreground mb-6">
                   Contact Information
                 </h3>
-                
+
                 <div className="space-y-4">
                   {contactInfo.map((item, index) => (
                     <div
@@ -77,7 +100,7 @@ const Contact = () => {
                       <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
                         <item.icon className="h-6 w-6 text-primary" />
                       </div>
-                      
+
                       <div>
                         <p className="text-sm text-muted-foreground mb-1">
                           {item.label}
@@ -105,22 +128,29 @@ const Contact = () => {
                   Let's Build Something Amazing Together
                 </h4>
                 <p className="text-muted-foreground leading-relaxed">
-                  Whether it's a web application, data science project, or innovative solution, 
-                  I'm excited to bring your ideas to life with cutting-edge technology and 
-                  creative problem-solving.
+                  Whether it's a web application, data science project, or
+                  innovative solution, I'm excited to bring your ideas to life
+                  with cutting-edge technology and creative problem-solving.
                 </p>
               </div>
             </div>
 
             {/* Contact Form */}
-            <div className="animate-fade-in-up" style={{ animationDelay: "0.2s" }}>
+            <div
+              className="animate-fade-in-up"
+              style={{ animationDelay: "0.2s" }}
+            >
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-foreground mb-2">
+                  <label
+                    htmlFor="name"
+                    className="block text-sm font-medium text-foreground mb-2"
+                  >
                     Your Name
                   </label>
                   <Input
                     id="name"
+                    name="name"
                     type="text"
                     placeholder="John Doe"
                     required
@@ -129,11 +159,15 @@ const Contact = () => {
                 </div>
 
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-foreground mb-2">
+                  <label
+                    htmlFor="email"
+                    className="block text-sm font-medium text-foreground mb-2"
+                  >
                     Email Address
                   </label>
                   <Input
                     id="email"
+                    name="email"
                     type="email"
                     placeholder="john@example.com"
                     required
@@ -142,11 +176,15 @@ const Contact = () => {
                 </div>
 
                 <div>
-                  <label htmlFor="subject" className="block text-sm font-medium text-foreground mb-2">
+                  <label
+                    htmlFor="subject"
+                    className="block text-sm font-medium text-foreground mb-2"
+                  >
                     Subject
                   </label>
                   <Input
                     id="subject"
+                    name="subject"
                     type="text"
                     placeholder="Project Inquiry"
                     required
@@ -155,11 +193,15 @@ const Contact = () => {
                 </div>
 
                 <div>
-                  <label htmlFor="message" className="block text-sm font-medium text-foreground mb-2">
+                  <label
+                    htmlFor="message"
+                    className="block text-sm font-medium text-foreground mb-2"
+                  >
                     Message
                   </label>
                   <Textarea
                     id="message"
+                    name="message"
                     placeholder="Tell me about your project or inquiry..."
                     required
                     className="w-full min-h-[150px]"
